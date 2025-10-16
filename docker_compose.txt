@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  chatbot:
+    build: .
+    container_name: image-recognition-chatbot
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./chatbot.db:/app/chatbot.db
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=your-secret-key-here
+    restart: unless-stopped
+    networks:
+      - chatbot-network
+
+networks:
+  chatbot-network:
+    driver: bridge
